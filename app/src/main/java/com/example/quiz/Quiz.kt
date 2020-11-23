@@ -1,15 +1,20 @@
 package com.example.quiz
 
-data class Question(
-    var category: String? = null,
-    var difficulty: Difficulty? = null ,
-    var question: String? = null,
-    var correct_answer: String? = null,
-    var incorrect_answers: List<String>
-)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-enum class Difficulty(difficulty: String) {
-    EASY("easy"),
-    MEDIUM("medium"),
-    HARD("hard")
-}
+@Parcelize
+class Quiz(
+    var response_code: Int,
+    var results: List<Question>
+): Parcelable
+
+@Parcelize
+data class Question(
+    var category: String,
+    var difficulty: String,
+    var question: String,
+    var correct_answer: String,
+    var incorrect_answers: List<String>
+): Parcelable
+

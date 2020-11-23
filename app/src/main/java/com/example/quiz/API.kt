@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val BASE_URL = "https://opentdb.com/api.php"
+const val BASE_URL = "https://opentdb.com/"
 
 object RetrofitClient {
     private var interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -28,11 +28,9 @@ object RetrofitClient {
 }
 
 interface RetrofitApi {
-    @GET()
+    @GET("/api.php")
     fun getQuiz(
         @Query("amount") amount: Int,
-        @Query("difficulty") difficulty: String,
         @Query("type") type: String,
-        @Query("category") category: Int
-    ): Deferred<List<Question>>
+    ): Deferred<Quiz>
 }
