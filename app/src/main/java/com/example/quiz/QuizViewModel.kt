@@ -1,7 +1,5 @@
 package com.example.quiz
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -12,6 +10,7 @@ sealed class QuizState() {
     class LoddingState : QuizState()
     class StartQuizState : QuizState()
     class ButtonClickState : QuizState()
+    class EndQuizState : QuizState()
     class ErrorState(var message: String) : QuizState()
 }
 
@@ -19,8 +18,7 @@ class QuizViewModel : ViewModel() {
     var state = MutableLiveData<QuizState>().apply { postValue(QuizState.LoddingState()) }
     var questionNumber = MutableLiveData<Int>().apply { postValue(0) }
     var quiz = MutableLiveData<Quiz>()
-
-
+    var correctAnswers = MutableLiveData<Int>().apply { postValue(0) }
 
 
     fun loadQuiz() {
@@ -36,8 +34,17 @@ class QuizViewModel : ViewModel() {
     }
 
 
-    fun nextQuestion() {
-        questionNumber.postValue(questionNumber.value!!.plus(1))
-        state.postValue(QuizState.ButtonClickState())
+    fun checkQuestion() {
+        if (questionNumber.value!! < 9) {
+            questionNumber.postValue(questionNumber.value!!.plus(1))
+            state.postValue(QuizState.ButtonClickState())
+        } else {
+            state.postValue(QuizState.EndQuizState())
+        }
     }
+
+    fun correctAnswer() {
+        correctAnswers.postValue(correctAnswers.value!!.plus(1))
+    }
+
 }

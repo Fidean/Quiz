@@ -17,4 +17,6 @@
     <string name="start">Start</string>
     <string name="game_name">Quiz</string>
     <string name="category">Category:</string>
+    <string name="you_score">You score:</string>
+    <string name="score">Score</string>
 </resources>

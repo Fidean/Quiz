@@ -22,5 +22,19 @@
         android:id="@+id/quizFragment"
         android:name="com.example.quiz.QuizFragment"
         android:label="quiz_fragment"
-        tools:layout="@layout/quiz_fragment" />
+        tools:layout="@layout/quiz_fragment" >
+        <action
+            android:id="@+id/action_quizFragment_to_endGameFragment"
+            app:destination="@id/endGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/endGameFragment"
+        android:name="com.example.quiz.EndGameFragment"
+        android:label="end_game_fragment"
+        tools:layout="@layout/end_game_fragment" >
+        <argument
+            android:name="correctAnswers"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

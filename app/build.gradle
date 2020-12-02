@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -31,9 +32,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        viewBinding true
-    }
 
 }
 
@@ -53,7 +51,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //Navigation
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.1'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
