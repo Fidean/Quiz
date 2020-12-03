@@ -31,7 +31,7 @@ class QuizFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(QuizViewModel::class.java)
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController(this@QuizFragment).navigate(R.id.action_quizFragment_to_endGameFragment)
+            toEndGameFragment()
         }
 
         button1.setOnClickListener {
@@ -97,11 +97,7 @@ class QuizFragment : Fragment() {
                     updateView()
                 }
                 is QuizState.EndQuizState -> {
-                    val bundle = bundleOf("correctAnswers" to viewModel.correctAnswers.value!!)
-                    findNavController(this).navigate(
-                        R.id.action_quizFragment_to_endGameFragment,
-                        bundle
-                    )
+                    toEndGameFragment()
                 }
                 is QuizState.ErrorState -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
@@ -117,6 +113,14 @@ class QuizFragment : Fragment() {
         button2.text = quiz!!.results[questionNum!!].incorrect_answers[0]
         button3.text = quiz!!.results[questionNum!!].incorrect_answers[1]
         button4.text = quiz!!.results[questionNum!!].incorrect_answers[2]
+    }
+
+    private fun toEndGameFragment(){
+        val bundle = bundleOf("correctAnswers" to viewModel.correctAnswers.value!!)
+        findNavController(this).navigate(
+            R.id.action_quizFragment_to_endGameFragment,
+            bundle
+        )
     }
 
 }
