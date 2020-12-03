@@ -28,6 +28,9 @@ class MainFragment : Fragment() {
         startQuizButton.setOnClickListener {
             viewModel.startQuiz()
         }
+        settingsButton.setOnClickListener {
+            viewModel.settings()
+        }
         viewModel.state.observe(viewLifecycleOwner, {
 
         })
@@ -42,7 +45,7 @@ class MainFragment : Fragment() {
                 }
 
                 is MainState.SettingState -> {
-                    //TODO make navigate setting fragment
+                    findNavController(this).navigate(R.id.action_mainFragment_to_settingsFragment)
                 }
 
                 is MainState.DefaultState -> {

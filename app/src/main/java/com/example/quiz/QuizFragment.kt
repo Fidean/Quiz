@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.quiz_fragment.*
 
 class QuizFragment : Fragment() {
@@ -27,6 +29,10 @@ class QuizFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(QuizViewModel::class.java)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController(this@QuizFragment).navigate(R.id.action_quizFragment_to_endGameFragment)
+        }
 
         button1.setOnClickListener {
             viewModel.correctAnswer()
@@ -62,6 +68,9 @@ class QuizFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner, {
             when (it) {
                 is QuizState.LoddingState -> {
+                    var sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(requireContext())
+                    viewModel.setDifficulty(sharedPreferences.getString("difficulty", "")!!)
                     progressBar.visibility = View.VISIBLE
                     button1.visibility = View.INVISIBLE
                     button2.visibility = View.INVISIBLE

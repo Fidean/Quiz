@@ -6,12 +6,17 @@ import androidx.lifecycle.ViewModel
 
 sealed class EndGameState() {
     class DefaultState : EndGameState()
+    class RestartState : EndGameState()
     class ErrorState(var message: String) : EndGameState()
 }
 
 class EndGameViewModel : ViewModel() {
     var state = MutableLiveData<EndGameState>().apply { postValue(EndGameState.DefaultState()) }
-    var correctAnswers: Int = 0
+    private var correctAnswers: Int = 0
+    fun restart() {
+        state.postValue(EndGameState.RestartState())
+    }
+
     fun setCorrectAnswer(value: Int?) {
         if (value != null) {
             Log.d("EndGameLog", value.toString())
@@ -19,5 +24,9 @@ class EndGameViewModel : ViewModel() {
         } else {
             state.postValue(EndGameState.ErrorState("Get Bundle Error"))
         }
+    }
+
+    fun getCorrectAnswer(): String {
+        return correctAnswers.toString()
     }
 }

@@ -19,4 +19,6 @@
     <string name="category">Category:</string>
     <string name="you_score">You score:</string>
     <string name="score">Score</string>
+    <string name="restart">Restart</string>
+    <string name="settings">Settings</string>
 </resources>

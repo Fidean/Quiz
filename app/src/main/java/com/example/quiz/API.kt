@@ -32,5 +32,6 @@ interface RetrofitApi {
     fun getQuiz(
         @Query("amount") amount: Int,
         @Query("type") type: String,
+        @Query("difficulty") difficulty: String
     ): Deferred<Quiz>
 }
