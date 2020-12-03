@@ -4,17 +4,17 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-sealed class EndGameState() {
-    class DefaultState : EndGameState()
-    class RestartState : EndGameState()
+sealed class EndGameState {
+    object DefaultState : EndGameState()
+    object RestartState : EndGameState()
     class ErrorState(var message: String) : EndGameState()
 }
 
 class EndGameViewModel : ViewModel() {
-    var state = MutableLiveData<EndGameState>().apply { postValue(EndGameState.DefaultState()) }
+    var state = MutableLiveData<EndGameState>().apply { postValue(EndGameState.DefaultState) }
     private var correctAnswers: Int = 0
     fun restart() {
-        state.postValue(EndGameState.RestartState())
+        state.postValue(EndGameState.RestartState)
     }
 
     fun setCorrectAnswer(value: Int?) {

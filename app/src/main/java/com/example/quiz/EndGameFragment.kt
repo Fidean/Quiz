@@ -27,7 +27,8 @@ class EndGameFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(EndGameViewModel::class.java)
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            NavHostFragment.findNavController(this@EndGameFragment).navigate(R.id.action_endGameFragment_to_mainFragment)
+            NavHostFragment.findNavController(this@EndGameFragment)
+                .navigate(R.id.action_endGameFragment_to_mainFragment)
         }
 
         restartButton.setOnClickListener {

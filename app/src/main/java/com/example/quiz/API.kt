@@ -15,7 +15,7 @@ object RetrofitClient {
     private var interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     private var client = OkHttpClient.Builder()
-        .addInterceptor(interceptor);
+        .addInterceptor(interceptor)
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -29,7 +29,7 @@ object RetrofitClient {
 
 interface RetrofitApi {
     @GET("/api.php")
-    fun getQuiz(
+    fun getQuizAsync(
         @Query("amount") amount: Int,
         @Query("type") type: String,
         @Query("difficulty") difficulty: String

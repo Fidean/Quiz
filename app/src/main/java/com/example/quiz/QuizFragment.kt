@@ -1,7 +1,6 @@
 package com.example.quiz
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +55,6 @@ class QuizFragment : Fragment() {
         }
 
         viewModel.questionNumber.observe(viewLifecycleOwner, {
-            Log.d("MYTAG", it.toString())
             questionNum = it
         })
         viewModel.quiz.observe(viewLifecycleOwner, {
@@ -67,8 +65,8 @@ class QuizFragment : Fragment() {
         })
         viewModel.state.observe(viewLifecycleOwner, {
             when (it) {
-                is QuizState.LoddingState -> {
-                    var sharedPreferences =
+                is QuizState.LoadingState -> {
+                    val sharedPreferences =
                         PreferenceManager.getDefaultSharedPreferences(requireContext())
                     viewModel.setDifficulty(sharedPreferences.getString("difficulty", "")!!)
                     progressBar.visibility = View.VISIBLE
@@ -115,7 +113,7 @@ class QuizFragment : Fragment() {
         button4.text = quiz!!.results[questionNum!!].incorrect_answers[2]
     }
 
-    private fun toEndGameFragment(){
+    private fun toEndGameFragment() {
         val bundle = bundleOf("correctAnswers" to viewModel.correctAnswers.value!!)
         findNavController(this).navigate(
             R.id.action_quizFragment_to_endGameFragment,

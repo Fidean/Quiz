@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Quiz(
-    var response_code: Int,
+    //var response_code: Int,
     var results: List<Question>
 ): Parcelable
 
