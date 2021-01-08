@@ -8,7 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.main_fragment.*
+import com.google.android.gms.ads.initialization.InitializationStatus
+
+
+
 
 class MainFragment : Fragment() {
 
@@ -49,10 +55,13 @@ class MainFragment : Fragment() {
                 }
 
                 is MainState.DefaultState -> {
-                    //TODO make default state logic
+                    MobileAds.initialize(requireContext()) {}
+                    val adRequest = AdRequest.Builder().build()
+                    adView.loadAd(adRequest)
                 }
             }
         })
+
     }
 
 }
